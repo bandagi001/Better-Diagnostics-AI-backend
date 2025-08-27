@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            background-color: #d7d7d7;
+        }
+        .main-box {
+            width: 60%;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .footer-box {
+            padding: 1rem;
+            background-color: #00a5cf;
+        }
+        .footer-box_links-box {
+            width: max-content;
+            margin: 0 auto;
+            display: flex;
+            padding-top: 1.5rem;
+            justify-content: center;
+        }
+        .footer-divider {
+            color: #fff;
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+        .footer-box_links-items {
+            color: #fff !important;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .desc {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #fff;
+            font-weight: bold;
+        }
+        .content-box {
+            background-color: #fff;
+            padding: 1.5rem 3rem 3rem 3rem;
+        }
+        .logo-container {
+            text-align: center;
+            padding: 12px 0px;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+        .message,
+        .message-conatiner {
+            color: #666;
+        }
+        .message-conatiner {
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+        .links {
+            text-decoration: none;
+            color: #00a3d7;
+        }
+        .greeting {
+            display: block;
+            color: #606060;
+            font-weight: bold;
+            padding-bottom: 2.5rem;
+        }
+        .greeting-1 {
+            display: block;
+            color: #606060;
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+        }
+        .greeting-2 {
+            color: #000000;
+            font-weight: bold;
+        }
+        .greeting-message {
+            color: #878787;
+            font-weight: bold;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .font-weight-bold {
+            font-weight: bold;
+            color: #000000;
+        }
+        @media (max-width: 826px) {
+            .main-box {
+                width: 80%;
+            }
+        }
+        @media (max-width: 620px) {
+            .footer-box_links-box {
+                font-size: 1rem;
+            }
+            .footer-divider {
+                padding-right: 0.7rem;
+                padding-left: 0.7rem;
+            }
+        }
+        @media (max-width: 420px) {
+            .footer-box_links-box {
+                font-size: 0.8rem;
+            }
+            .message,
+            .message-conatiner {
+                font-size: 0.8rem;
+            }
+            .footer-divider {
+                padding-right: 0.3rem;
+                padding-left: 0.3rem;
+            }
+        }
+        @media (max-width: 320px) {
+            .footer-box_links-box {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-box">
+            <div class="content-box">
+                <div class="message-conatiner">
+                    <span class="greeting" id="Server_type">Hi, {{EMAIL}}</span>
+                    <span class="greeting-1">
+                        Welcome to Better Diagnostics.
+                    </span>
+                </div>
+                <div class="message-conatiner">
+                    Here is your API key - <b>{{APIKEY}}</b>
+                </div>
+                <div class="message">
+                    <p>
+                        Sincerely, <br />
+                        Better Diagnostics
+                    </p>
+                </div>
+            </div>
+            <div class="footer-box">
+                <div class="desc">
+                    <p>&#169; Better Diagnostics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

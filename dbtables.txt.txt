@@ -1,0 +1,69 @@
+create database ti_dev;
+
+CREATE TABLE User (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    email varchar(255) NOT NULL UNIQUE,
+    userName varchar(255),
+    password varchar(255) NOT NULL,
+    token text(65535),
+    PRIMARY KEY (_id),
+    apiKey varchar(255),
+    keyName varchar(255),
+    keyExpiry varchar(255),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE Patient (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    firstName varchar(255) NOT NULL,
+    lastName varchar(255) NOT NULL,
+    dateofBirth varchar(255) NULL,
+    mobile varchar(255) NULL,
+    gender varchar(255) NULL,
+    profileImg varchar(255),
+    location varchar(255),
+    imageName varchar(255),
+    patientId varchar(255),
+    userId INT,
+    CONSTRAINT fk_user
+    FOREIGN KEY (userId) 
+	   REFERENCES User(_id),
+    PRIMARY KEY (_id),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE PatientVisit (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    visitFor varchar(255) NOT NULL,
+    visitId varchar(255) NOT NULL,
+    doctorNote LONGTEXT,
+    findingJson LONGTEXT,
+    savedImageData LONGTEXT,
+    patientId INT,
+    CONSTRAINT fk_patient
+    FOREIGN KEY (patientId) 
+	   REFERENCES Patient(_id),
+    PRIMARY KEY (_id),
+    images text(65535),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE OTP (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    otp varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+    PRIMARY KEY (_id),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE Subscriber (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    email varchar(255) NOT NULL,
+    PRIMARY KEY (_id),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
