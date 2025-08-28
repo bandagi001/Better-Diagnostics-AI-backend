@@ -1,4 +1,4 @@
-const { findByIdAndUpdate, findById, create, findByFieldname, find, findBytwoFieldname, findByFieldnameAndUpdate, filterbyThreeFields } = require("../utility/dbqueries");
+const { findByIdAndUpdate, findById, create, findByFieldname, find, findBytwoFieldname, findByFieldnameAndUpdate, filterbyThreeFields, executeQuery } = require("../utility/dbqueries");
 const { createResponse } = require("../utility/response");
 
 exports.createPatient = async (req, res) => {
@@ -125,6 +125,63 @@ exports.createChartNotes = async (req, res) => {
     try {
         chartNote = await create('ChartNote', req.body);
         return createResponse(res, 'success', 'Added successfully', chartNote);
+    } catch (error) {
+        return createResponse(res, 'error', error.errors ? error.errors : error);
+    }
+};
+
+// Voice Transcriptions
+exports.createVoiceTranscription = async (req, res) => {
+    try {
+        const { patientId, recognizedText, aiFormattedNotes, summary } = req.body;
+        if (!patientId) {
+            return createResponse(res, 'error', 'patientId is required');
+        }
+
+        const payload = {
+            patientId,
+            recognizedText: recognizedText || null,
+            aiFormattedNotes: aiFormattedNotes || null,
+            summary: summary || null
+        };
+
+        const created = await create('VoiceTranscription', payload);
+        return createResponse(res, 'success', 'Transcription saved', created);
+    } catch (error) {
+        return createResponse(res, 'error', error.errors ? error.errors : error);
+    }
+};
+
+exports.listVoiceTranscriptions = async (req, res) => {
+    try {
+        const { patientId } = req.body;
+        let { page, limit } = req.body;
+        if (!patientId) {
+            return createResponse(res, 'error', 'patientId is required');
+        }
+        page = parseInt(page || 1);
+        limit = parseInt(limit || 10);
+        const offset = (page - 1) * limit;
+
+        const listQuery = `SELECT * FROM VoiceTranscription WHERE patientId='${patientId}' ORDER BY createdAt DESC LIMIT ${limit} OFFSET ${offset}`;
+        const countQuery = `SELECT COUNT(*) as total FROM VoiceTranscription WHERE patientId='${patientId}'`;
+
+        const [items, totalRows] = await Promise.all([
+            executeQuery(listQuery),
+            executeQuery(countQuery)
+        ]);
+
+        const total = totalRows && totalRows[0] ? totalRows[0].total : 0;
+        const response = {
+            items,
+            pagination: {
+                page,
+                limit,
+                total,
+                pages: Math.ceil(total / limit)
+            }
+        };
+        return createResponse(res, 'success', 'Data fetched', response);
     } catch (error) {
         return createResponse(res, 'error', error.errors ? error.errors : error);
     }

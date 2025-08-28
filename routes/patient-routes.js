@@ -14,4 +14,8 @@ patientRouter.get('/getDoctorList', authMiddleware, patientController.getDoctorL
 patientRouter.post('/getChartNotes', authMiddleware, patientController.getChartNotes);
 patientRouter.post('/createChartNote', authMiddleware, patientController.createChartNotes);
 
+// Voice Transcriptions
+patientRouter.post('/voiceTranscriptions/create', authMiddleware, patientController.createVoiceTranscription);
+patientRouter.post('/voiceTranscriptions/list', authMiddleware, patientController.listVoiceTranscriptions);
+
 module.exports = patientRouter;

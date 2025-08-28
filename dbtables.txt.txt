@@ -67,3 +67,18 @@ CREATE TABLE Subscriber (
     createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+-- Voice transcriptions for real-time voice notes
+CREATE TABLE VoiceTranscription (
+    _id int NOT NULL AUTO_INCREMENT UNIQUE,
+    patientId INT NOT NULL,
+    recognizedText LONGTEXT,
+    aiFormattedNotes LONGTEXT,
+    summary LONGTEXT,
+    CONSTRAINT fk_patient_transcription
+    FOREIGN KEY (patientId)
+       REFERENCES Patient(_id),
+    PRIMARY KEY (_id),
+    createdAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
