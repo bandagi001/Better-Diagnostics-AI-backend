@@ -8,7 +8,6 @@ const patientRouter = require('./routes/patient-routes');
 const emailRouter = require('./routes/email-routes');
 const decryptRequest = require('./middlewares/decryptreq');
 const PORT = 4000;
-const { ensureVoiceTranscriptionTable } = require('./utility/migrations');
 
 const app = express();
 const router = express.Router();
@@ -24,8 +23,6 @@ router.use('/auth', authRouter);
 router.use('/patient', patientRouter);
 router.use('/email', emailRouter);
 
-ensureVoiceTranscriptionTable().then(() => {
-    app.listen(PORT, () => {
-        console.log('App running on port -> ' + PORT);
-    })
+app.listen(PORT, () => {
+    console.log('App running on port -> ' + PORT);
 });
